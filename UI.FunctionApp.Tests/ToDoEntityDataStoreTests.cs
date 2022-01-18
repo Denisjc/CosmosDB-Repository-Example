@@ -138,9 +138,7 @@ namespace UI.FunctionApp.Tests
         {
             // Arrange
 
-            var toDoEntity =
-                _faker.GenerateToDoEntity();
-
+            var toDoEntity = _faker.GenerateToDoEntity();
             
             await _container.CreateItemAsync(toDoEntity, new PartitionKey(toDoEntity.ToDoId));
 
