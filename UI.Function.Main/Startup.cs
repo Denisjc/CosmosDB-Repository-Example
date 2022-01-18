@@ -1,13 +1,6 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-using Data.CosmosDb;
-using Microsoft.Azure.Cosmos.Fluent;
-using Microsoft.Azure.Functions.Extensions.DependencyInjection;
+﻿using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using UI.Function.Main;
-using UI.FunctionApp.Data;
 using UI.FunctionApp.Extensions;
 
 [assembly: FunctionsStartup(typeof(Startup))]
@@ -34,11 +27,6 @@ namespace UI.Function.Main
             
             services.SetupCosmosDb(_config);
 
-            
-
-          
         }
-
-       
     }
 }

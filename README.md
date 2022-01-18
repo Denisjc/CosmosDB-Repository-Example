@@ -13,7 +13,7 @@ The following prerequisites are required:
 
 ## Projects
 
-**ClassLibrary1.csproj**
+**Data.CosmosDb.csproj**
 
 This project contains the standard interfaces and abstract classed to support how Azure Cosmos DB should be implemented for reading and writing.
 
@@ -21,27 +21,27 @@ The `Entity` classes are for root entities, e.g. `ToDo`, while the `ChildEntity`
 
 From a code perspective, the main difference between `Entity` and `ChildEntity` is that `ChildEntity` is open to having a `ParentId` property which is required for most calls using the `ChildEntityDataStore`. 
 
-**ClassLibrary1.Tests.csproj**
+**Data.CosmosDb.Tests.csproj**
 
-Contains the tests for the `ClassLibrary1` project.
+Contains the tests for the `Data.CosmosDb` project.
 
 The tests cover valid configuration options.
 
-**FunctionApp1.csproj**
+**UI.FunctionApp.csproj**
 
 This project contains the concrete implementations of the `ToDo` and `ToDoComment` entities and data stores - the repositories in a repository design pattern - that are persisted to Azure Cosmos DB.
 
 It also contains Azure Functions, and supporting classes, for CRUD operations: create, retrieve, update and delete. 
 
-**FunctionApp1.Tests.csproj**
+**UI.FunctionApp.Tests.csproj**
 
-Contains the tests for the `FunctionApp1` project.
+Contains the tests for the `UI.FunctionApp` project.
 
 The tests cover reading and writing data use the `EntityDataStore` classes.
 
 Currently the tests are setup to run locally using the Azure Cosmos DB Emulator.
 
-In the **FunctionApp1** project, the `local.settings.json` should look like:
+In the **UI.FunctionApp** project, the `local.settings.json` should look like:
 
 ```
 {
@@ -55,7 +55,7 @@ In the **FunctionApp1** project, the `local.settings.json` should look like:
 }
 ```
 
-In the **FunctionApp1.Tests** project, the `appsettings.Development.json` should look like:
+In the **UI.FunctionApp.Tests** project, the `appsettings.Development.json` should look like:
 
 ```
 {
