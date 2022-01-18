@@ -20,43 +20,29 @@ namespace UI.FunctionApp.Tests
         protected Database _database;
         protected Container _container;
 
-        protected string _databaseId = "Todo";
+        protected string _databaseId;
         private string containerId = "todos";
-
 
         //private static string _endpointUri;
         //private static string _primaryKey;
 
         protected  BaseTests()
         {
-            
             _faker = new Faker();
 
             var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            if (env == "Staging")
-            {
-                _configuration = new ConfigurationBuilder()
-                    .AddJsonFile("appsettings.Staging.json")
-                    .Build();
+            var settingsFile = env == "Staging" ? "appsettings.Staging.json" : "appsettings.Development.json";
+           
+            _configuration = new ConfigurationBuilder()
+                .AddJsonFile(settingsFile)
+                .Build();
 
-                var connectionString = _configuration["AzureCosmosOptions:ConnectionString"];
+            var endpointUri = _configuration["AzureCosmosOptions:EndpointUri"];
+            var primaryKey = _configuration["AzureCosmosOptions:PrimaryKey"];
 
-                _databaseId = _configuration["AzureCosmosOptions:DatabaseId"];
-                _cosmosClient = new CosmosClient(connectionString, GetCosmosClientOptions());
-            }
-            else
-            {
-                _configuration = new ConfigurationBuilder()
-                    .AddJsonFile("appsettings.Development.json")
-                    .Build();
+            _databaseId = _configuration["AzureCosmosOptions:DatabaseId"];
+            _cosmosClient = new CosmosClient(endpointUri, primaryKey, GetCosmosClientOptions());
 
-                var endpointUri = _configuration["AzureCosmosOptions:EndpointUri"];
-                var primaryKey = _configuration["AzureCosmosOptions:PrimaryKey"];
-
-                _databaseId = _configuration["AzureCosmosOptions:DatabaseId"];
-                _cosmosClient = new CosmosClient(endpointUri, primaryKey, GetCosmosClientOptions());
-            }
-         
         }
 
         private static CosmosClientOptions GetCosmosClientOptions()
